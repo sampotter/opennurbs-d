@@ -23,7 +23,7 @@ TMP=$(mktemp)
 cat $HEADER_CPP $INPUT > $TMP
 mv $TMP $INPUT
 
-./test.py > $OUTPUT
+./cpp2d.py > $OUTPUT
 
 TMP=$(mktemp)
 cat $HEADER_D $OUTPUT > $TMP

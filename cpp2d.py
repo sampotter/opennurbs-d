@@ -8,7 +8,7 @@ from cxxheaderparser.types import *
 tabwidth = 2
 spaces = 0
 # current_access = None
-output_methods = False
+output_methods = True
 
 file_ = None
 

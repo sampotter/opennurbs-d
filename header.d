@@ -72,3 +72,4 @@ alias WriteCallback = void *;
 alias ON_GetFontMetricsFuncType = void *;
 alias ON_GetGlyphMetricsFuncType = void *;
 alias ON_GetGlyphOutlineFuncType = void *;
+

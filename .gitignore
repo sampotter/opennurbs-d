@@ -1,2 +1,3 @@
 filtered.cpp
 opennurbs.d
+*.o
