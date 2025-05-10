@@ -45,6 +45,7 @@ BEGIN_TARGET
 #include "opennurbs_light.h"
 #include "opennurbs_line.h"
 #include "opennurbs_linear_workflow.h"
+#include "opennurbs_linecurve.h"
 #include "opennurbs_linestyle.h"
 #include "opennurbs_linetype.h"
 #include "opennurbs_locale.h"

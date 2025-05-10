@@ -5,6 +5,20 @@ import core.stdc.time : time_t, tm;
 
 import std_;
 
+// see https://forum.dlang.org/post/zmzzissfeqoqxojgprxy@forum.dlang.org
+string fixMangle(alias sym, string name)() {
+  import std.string;
+  import std.conv : text;
+  version(Windows)
+    return sym.mangleof.replace(__traits(identifier, sym), "f");
+  else version(Posix)
+    return sym.mangleof.replace(
+      __traits(identifier, sym).length.text ~ __traits(identifier, sym),
+      name.length.text ~ name);
+  else
+    static assert (0, "unsupported system");
+}
+
 extern(C) {
   struct Block;
   struct CImpl;
@@ -14,7 +28,6 @@ extern(C) {
   struct Private;
   struct memchunk;
 
-  struct ON_SubD_FixedSizeHeap_ComponentPairHashElement;
   struct ONX_ModelComponentReferenceLink;
   struct ONX_ModelPrivate;
   struct ON_3dmAnnotationSettingsPrivate;
@@ -25,6 +38,7 @@ extern(C) {
   struct ON_BUFFER_SEGMENT;
   struct ON_ComponentManifestImpl;
   struct ON_CompressorImplementation;
+  struct ON_DecalCollection;
   struct ON_DirectoryIteratorImpl;
   struct ON_FontGlyphCache;
   struct ON_FontListImpl;
@@ -36,20 +50,22 @@ extern(C) {
   struct ON_OBSOLETE_V2_Annotation;
   struct ON_OBSOLETE_V2_TextDot;
   struct ON_OBSOLETE_V5_Annotation;
-  struct ON_ReferencedComponentSettingsImpl;
   struct ON_RTreeListNode;
+  struct ON_ReferencedComponentSettingsImpl;
   struct ON_SN_BLOCK;
   struct ON_SectionStylePrivate;
   struct ON_SerialNumberMapPrivate;
-  struct ON_SubDimple;
   struct ON_SubDEdgeSurfaceCurve;
   struct ON_SubDLevel;
   struct ON_SubDMeshImpl;
+  struct ON_SubD_FixedSizeHeap_ComponentPairHashElement;
+  struct ON_SubDimple;
   struct ON_UnicodeTextFilePrivate;
   struct ON_UuidIndexList2_Private;
   struct ON_UuidPairList2_Private;
   struct ON_UuidPtrList2_Private;
   struct ON_V4V5_MeshNgonList;
+  struct ON_V5x_DimStyle;
   struct ON_Value;
   struct ON_XMLNodeChildIteratorPrivate;
   struct ON_XMLNodePrivate;
@@ -73,3 +89,5 @@ alias ON_GetFontMetricsFuncType = void *;
 alias ON_GetGlyphMetricsFuncType = void *;
 alias ON_GetGlyphOutlineFuncType = void *;
 
+immutable(double) ON_UNSET_POSITIVE_VALUE = 1.23432101234321e+308;
+immutable(double) ON_UNSET_VALUE = -ON_UNSET_POSITIVE_VALUE;
